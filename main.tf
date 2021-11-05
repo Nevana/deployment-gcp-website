@@ -14,7 +14,7 @@ resource "google_compute_instance" "this" {
   name                    = "debian09"
   machine_type            = "e2-small"
   metadata_startup_script = "apt update && apt -y install apache2 && echo '<html><body><p>Linux startup script added directly.</p></body></html>' > /var/www/html/index.html"
-  #tags                    = ["http-server", "https-server"]
+  tags                    = ["http-server", "https-server"]
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-9"
@@ -83,4 +83,16 @@ resource "google_compute_url_map" "this" {
   name            = "l7-xlb-url-map"
   provider        = google
   default_service = google_compute_backend_service.this.id
+}
+
+resource "google_compute_firewall" "this" {
+  name          = "test-firewall"
+  network       = "default"
+  source_ranges = ["35.191.0.0/16", "130.211.0.0/22"]
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
 }
