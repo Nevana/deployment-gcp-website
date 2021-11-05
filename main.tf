@@ -27,6 +27,6 @@ resource "google_compute_instance_group" "this" {
   instances = [google_compute_instance.this.id]
   named_port {
     name = "http"
-    port = "8080"
+    port = "80"
   }
 }
