@@ -94,5 +94,8 @@ resource "google_compute_firewall" "this" {
     protocol = "tcp"
     ports    = ["80"]
   }
+  log_config {
+    metadata = "INCLUDE_ALL_METADATA"
+  }
 
 }
