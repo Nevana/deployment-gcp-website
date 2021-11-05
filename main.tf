@@ -5,6 +5,13 @@ provider "google" {
   zone    = "us-central1-a"
 }
 
+provider "google-beta" {
+  #credentials = file("../key.json")
+  project = "playground-s-11-b0962ad6"
+  region  = "us-central1"
+  zone    = "us-central1-a"
+}
+
 resource "google_compute_instance" "this" {
   name                    = "debian09"
   machine_type            = "e2-small"
