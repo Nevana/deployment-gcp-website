@@ -1,11 +1,11 @@
 provider "google" {
-  project = "playground-s-11-b0962ad6"
+  project = "playground-s-11-ddb2d888"
   region  = "us-central1"
   zone    = "us-central1-a"
 }
 
 provider "google-beta" {
-  project = "playground-s-11-b0962ad6"
+  project = "playground-s-11-ddb2d888"
   region  = "us-central1"
   zone    = "us-central1-a"
 }

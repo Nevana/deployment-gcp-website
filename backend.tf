@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "12435657ioter345677iuztrew"
+    bucket = "12345676543212345"
     prefix = "terraform/"
   }
 }
