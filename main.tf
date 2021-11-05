@@ -1,12 +1,10 @@
 provider "google" {
-  #credentials = file("../key.json")
   project = "playground-s-11-b0962ad6"
   region  = "us-central1"
   zone    = "us-central1-a"
 }
 
 provider "google-beta" {
-  #credentials = file("../key.json")
   project = "playground-s-11-b0962ad6"
   region  = "us-central1"
   zone    = "us-central1-a"
@@ -16,7 +14,7 @@ resource "google_compute_instance" "this" {
   name                    = "debian09"
   machine_type            = "e2-small"
   metadata_startup_script = "apt update && apt -y install apache2 && echo '<html><body><p>Linux startup script added directly.</p></body></html>' > /var/www/html/index.html"
-  tags                    = ["http-server", "https-server"]
+  #tags                    = ["http-server", "https-server"]
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-9"
