@@ -1,26 +1,26 @@
 provider "google" {
-  project = var.project # "playground-s-11-28ca33cd"
-  region  = var.region  # "us-central1"
-  zone    = var.zone    # "us-central1-a"
+  project = var.project
+  region  = var.region
+  zone    = var.zone
 }
 
 provider "google-beta" {
-  project = var.project # "playground-s-11-28ca33cd"
-  region  = var.region  # "us-central1"
-  zone    = var.zone    # "us-central1-a"
+  project = var.project
+  region  = var.region
+  zone    = var.zone
 }
 
 resource "google_compute_instance" "this" {
-  name                    = var.name              # "debian09"
-  machine_type            = var.vm-type           # "e2-small"
-  metadata_startup_script = var.vm-startup-script # "apt update && apt -y install apache2 && echo '<html><body><p>Linux startup script added directly.</p></body></html>' > /var/www/html/index.html"
+  name                    = var.name
+  machine_type            = var.vm-type
+  metadata_startup_script = var.vm-startup-script
   boot_disk {
     initialize_params {
-      image = var.vm-image # "debian-cloud/debian-9"
+      image = var.vm-image
     }
   }
   network_interface {
-    network = var.network # "default"
+    network = var.network
     access_config {
     }
   }
@@ -30,8 +30,8 @@ resource "google_compute_instance_group" "this" {
   name      = var.name
   instances = [google_compute_instance.this.id]
   named_port {
-    name = var.name         # "http"
-    port = var.backend-port # "80"
+    name = var.name
+    port = var.backend-port
   }
 }
 
@@ -40,7 +40,7 @@ resource "google_compute_health_check" "this" {
   check_interval_sec = 1
   timeout_sec        = 1
   tcp_health_check {
-    port = var.backend-port # "80"
+    port = var.backend-port
   }
 }
 
@@ -64,9 +64,9 @@ resource "google_compute_global_address" "this" {
 
 resource "google_compute_global_forwarding_rule" "this" {
   name                  = var.name
-  ip_protocol           = upper(var.ip_protocol) # "TCP"
+  ip_protocol           = upper(var.ip_protocol)
   load_balancing_scheme = "EXTERNAL"
-  port_range            = var.frontend-port # 80
+  port_range            = var.frontend-port
   target                = google_compute_target_http_proxy.this.id
   ip_address            = google_compute_global_address.this.id
 }
@@ -84,11 +84,11 @@ resource "google_compute_url_map" "this" {
 resource "google_compute_firewall" "this" {
   name          = var.name
   network       = var.network
-  source_ranges = var.source-ranges # ["35.191.0.0/16", "130.211.0.0/22"]
+  source_ranges = var.source-ranges
 
   allow {
-    protocol = var.ip_protocol    # "tcp"
-    ports    = [var.backend-port] # 80
+    protocol = var.ip_protocol
+    ports    = [var.backend-port]
   }
   log_config {
     metadata = "INCLUDE_ALL_METADATA"
