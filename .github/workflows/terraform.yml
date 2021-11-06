@@ -36,7 +36,11 @@ jobs:
       run: terraform validate
 
     - name: Terraform Graph
-      run: terraform graph
+      run: |
+        terraform init
+        terraform graph
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.TF_API_TOKEN }}
 
     - name: Terraform Plan
       run: terraform plan -var-file=settings.tfvars
