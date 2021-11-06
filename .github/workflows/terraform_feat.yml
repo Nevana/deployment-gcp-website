@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform plan'
 
 on:
   pull_request:
@@ -18,7 +18,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup Terraform
+    - name: Terraform setup
       uses: hashicorp/setup-terraform@v1
 
     - name: Terraform init
