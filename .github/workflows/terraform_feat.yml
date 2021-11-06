@@ -1,6 +1,9 @@
 name: 'Terraform plan'
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -33,11 +36,12 @@ jobs:
 
     - name: Terraform validate
       id: validate
-      run: terraform validate
+      run: terraform validate -no-color
 
     - name: Terraform plan
       id: plan
-      run: terraform plan -var-file=settings.tfvars
+      if: github.event_name == 'pull_request'
+      run: terraform plan -var-file=settings.tfvars -no-color
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.TF_API_TOKEN }}
       continue-on-error: true
@@ -71,3 +75,13 @@ jobs:
             repo: context.repo.repo,
             body: output
           })
+
+    - name: Terraform Plan Status
+      if: steps.plan.outcome == 'failure'
+      run: exit 1
+
+    - name: Terraform apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -var-file=settings.tfvars
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.TF_API_TOKEN }}
