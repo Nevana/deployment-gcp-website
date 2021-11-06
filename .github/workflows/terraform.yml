@@ -32,10 +32,10 @@ jobs:
     - name: Terraform Format
       run: terraform fmt -check
 
-    - name: Terraform Format
+    - name: Terraform Validate
       run: terraform validate
 
-    - name: Terraform Format
+    - name: Terraform Graph
       run: terraform graph
 
     - name: Terraform Plan
