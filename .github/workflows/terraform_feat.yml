@@ -1,9 +1,7 @@
 name: 'Terraform'
 
 on:
-  push:
-    branches:
-    - main
+  pull_request:
 
 jobs:
   terraform:
@@ -36,11 +34,5 @@ jobs:
 
     - name: Terraform plan
       run: terraform plan -var-file=settings.tfvars
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.TF_API_TOKEN }}
-
-    - name: Terraform apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -var-file=settings.tfvars
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.TF_API_TOKEN }}
