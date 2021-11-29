@@ -1,0 +1,44 @@
+---
+
+version: ">= 0.13.0, < 1.0.0"
+
+formatter: markdown document
+
+sections:
+  hide: []
+  show:
+    - data-sources
+    - header
+    - footer
+    - inputs
+    - modules
+    - outputs
+    - providers
+    - requirements
+    - resources
+
+output:
+  file: "README.md"
+  mode: inject
+  template: |-
+    <!-- TF_DOCS_BEGIN -->
+    {{ .Content }}
+    <!-- TF_DOCS_END -->
+
+output-values:
+  enabled: false
+  from: ""
+
+sort:
+  enabled: true
+  by: required
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  escape: false
+  indent: 2
+  required: true
+  sensitive: true
+  type: true
