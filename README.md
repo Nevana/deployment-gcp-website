@@ -1,3 +1,3 @@
 # terraform-cd-example
 
-## test 2
+IaC example with github actions
