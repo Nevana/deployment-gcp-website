@@ -1,3 +1,7 @@
-# terraform-cd-example
+# Website deployment in GCP
 
-IaC example with github actions
+Hello World webserver deployment in GCP.
+
+## architecture
+
+![**archtetecture**](img/architecture.png)
