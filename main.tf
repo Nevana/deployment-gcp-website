@@ -21,6 +21,7 @@ resource "google_compute_instance" "this" {
   }
   network_interface {
     network = var.network
+    #tfsec:ignore:google-compute-no-public-ip
     access_config {
     }
   }
